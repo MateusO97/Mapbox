@@ -1,45 +1,100 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Add a geocoder</title>
-<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
-</style>
-</head>
-<body>
-<!-- Load the `mapbox-gl-geocoder` plugin. -->
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css" type="text/css">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- Promise polyfill script is required -->
-<!-- to use Mapbox GL Geocoder in IE 11. -->
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <title>Color Boundary</title>
 
-<div id="map"></div>
+    <!-- Mapbox GL JS js and css -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
+    <link
+    href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
+    rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+    type="text/css"
+    />
 
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzbzk3IiwiYSI6ImNrbmhsc3VrOTA2djMydm9hcHhyeDB6bGgifQ.vxr0ccNez1Z1f63pzlMh0w';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [-79.4512, 43.6568],
-zoom: 13
-});
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-// Add the control to the map.
-map.addControl(
-new MapboxGeocoder({
-accessToken: mapboxgl.accessToken,
-mapboxgl: mapboxgl
-})
-);
-</script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 
-</body>
+    <!-- juqery required for bootstrap js -->
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+  </head>
+
+  <body>
+    <!-- Container -->
+    <div class="container">
+
+      <!-- Masthead -->
+      <div class="masthead">
+
+        <!-- Navigation -->
+        <nav>
+        </nav>
+      </div>
+
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>Color Boundary</h1>
+        <p class="lead">Generate a color boundary on mapbox with area code</p>
+      </div>
+
+      <!-- Main Content-->
+      <div class="masthead">
+        <h3 class="text-muted">Map</h3>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="map"></div>
+            <div id="geocoder-container"></div>
+
+          <!-- START YOUR BOOTSTRAP GOODNESS HERE -->
+
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Address Information</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item" id="zip">Zip Code: </li>
+                  <li class="list-group-item" id="address">Address: </li>
+                  <li class="list-group-item" id="city">City: </li>
+                  <li class="list-group-item" id="state">State: </li>
+                  <li class="list-group-item" id="country">Country: </li>
+                </ul>
+              </div>
+          </div>
+
+          <!-- END YOUR BOOTSTRAP GOODNESS HERE -->
+
+          </div> <!-- col -->
+        </div> <!-- row -->
+      </div>
+
+      <!-- Site footer -->
+      <footer class="footer">
+        <p>&copy; <span id="currentYear">THIS YEAR</span></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+  <!-- local code to load and style the map -->
+  <script src="my-mapbox.js"></script>
+  </body>
 </html>
