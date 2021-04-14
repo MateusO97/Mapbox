@@ -31,7 +31,8 @@ map.addControl(geocoder);
 // After the map style has loaded on the page,
 // add a source layer and default styling for a single point
 map.on('load', function () {
-  map.addSource('single-point', {
+
+  map.addSource('coordinates', {
     'type': 'geojson',
     'data': {
       'type': 'FeatureCollection',
@@ -39,25 +40,41 @@ map.on('load', function () {
     }
   });
 
+
+  // Add a new layer to visualize the polygon.
   map.addLayer({
-    'id': 'point',
-    'source': 'single-point',
-    'type': 'circle',
+    'id': 'fillcity',
+    'type': 'fill',
+    'source': 'coordinates', // reference the data source
+    'layout': {},
     'paint': {
-      'circle-radius': 10,
-      'circle-color': '#448ee4'
+      'fill-color': '#0080ff', // blue color fill
+      'fill-opacity': 0.5
     }
   });
+  // Add a black outline around the polygon.
+  map.addLayer({
+    'id': 'outline',
+    'type': 'line',
+    'source': 'coordinates',
+    'layout': {},
+    'paint': {
+      'line-color': '#000',
+      'line-width': 3
+    }
+  });
+});
 
   // Listen for the `result` event from the Geocoder // `result` event is triggered when a user makes a selection
   //  Add a marker at the result's coordinates
   geocoder.on('result', function (e) {
-    map.getSource('single-point').setData(e.result.geometry);
+    map.getSource('coordinates').setData(e.result.geometry);
     document.getElementById("zip").innerHTML = JSON.stringify(e.result.context[0].text);
     document.getElementById("address").innerHTML = JSON.stringify(e.result.text);
     document.getElementById("city").innerHTML = JSON.stringify(e.result.context[1].text);
     document.getElementById("state").innerHTML = JSON.stringify(e.result.context[2].text);
     document.getElementById("country").innerHTML = JSON.stringify(e.result.context[3].text);
     console.log(e.result);
+
+
   });
-});
