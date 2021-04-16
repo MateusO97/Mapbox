@@ -96,3 +96,27 @@ function get_osm_id(location_name) {
 function callback(result) {
   get_polygon_coordinates(result);
 }
+
+function get_polygon_coordinates(osm_id) {
+  var request = new XMLHttpRequest();
+  var polygon;
+  url = 'https://nominatim.openstreetmap.org/details.php?osmtype=R&osmid=';
+  params = osm_id;
+  format = '&class=boundary&addressdetails=1&hierarchy=0&group_hierarchy=1&polygon_geojson=1&format=json';
+  request.open('GET', url + params + format, true)
+  request.onload = function () {
+    // Begin accessing JSON data here
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+      // console.log(data);
+      polygon = data;
+      print_polygon(polygon);
+      // console.log(data[0].osm_id);
+    } else {
+      console.log('error')
+    }
+  }
+
+  request.send()
+}
