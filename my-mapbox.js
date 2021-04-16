@@ -123,7 +123,6 @@ function get_polygon_coordinates(osm_id) {
 
 function print_polygon(polygon) {
   let coordenadas = polygon.geometry.coordinates;
-  console.log(coordenadas);
 
   if(map.getLayer('fillcity')) {
     map.removeLayer('fillcity');
@@ -171,3 +170,9 @@ function print_polygon(polygon) {
     }
   });
 }
+
+
+geocoder.on('result', function (e) {
+  location_name = get_location_name(e.result)
+  osm_id = get_osm_id(location_name)
+});
