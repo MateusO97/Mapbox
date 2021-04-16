@@ -4,7 +4,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWV0cmljb24iLCJhIjoiY2l3eTQxMWl3MDBmYTJ6cWg3Y
 var map = new mapboxgl.Map({
   container: 'map', // Container ID
   style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
-  center: [-48.043782, -15.841599], // Starting position [lng, lat]
+  center: [-79.3849, 43.6529], // Starting position [lng, lat]
   zoom: 10 // Starting zoom level
 });
 
@@ -170,6 +170,7 @@ function print_polygon(polygon) {
 
 
 geocoder.on('result', function (e) {
+  console.log(e.result);
   location_name = get_location_name(e.result)
   osm_id = get_osm_id(location_name)
 });
