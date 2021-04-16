@@ -120,3 +120,54 @@ function get_polygon_coordinates(osm_id) {
 
   request.send()
 }
+
+function print_polygon(polygon) {
+  let coordenadas = polygon.geometry.coordinates;
+  console.log(coordenadas);
+
+  if(map.getLayer('fillcity')) {
+    map.removeLayer('fillcity');
+  }
+  if(map.getLayer('outline')) {
+    map.removeLayer('outline');
+  }
+  if(map.getSource('city_polygon')) {
+    map.removeSource('city_polygon');
+  }
+
+  map.addSource('city_polygon', {
+'type': 'geojson',
+'data': {
+'type': 'Feature',
+'geometry': {
+'type': 'Polygon',
+// These coordinates outline Maine.
+'coordinates': coordenadas
+}
+}
+});
+
+
+  // Add a new layer to visualize the polygon.
+  map.addLayer({
+    'id': 'fillcity',
+    'type': 'fill',
+    'source': 'city_polygon', // reference the data source
+    'layout': {},
+    'paint': {
+      'fill-color': '#0080ff', // blue color fill
+      'fill-opacity': 0.5
+    }
+  });
+  // Add a black outline around the polygon.
+  map.addLayer({
+    'id': 'outline',
+    'type': 'line',
+    'source': 'city_polygon',
+    'layout': {},
+    'paint': {
+      'line-color': '#000',
+      'line-width': 3
+    }
+  });
+}
