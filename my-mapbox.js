@@ -70,3 +70,29 @@ function get_location_name(geoData) {
   }
   return returnStr;
 }
+
+function get_osm_id(location_name) {
+  var request = new XMLHttpRequest();
+  var osm_id;
+  url = 'https://nominatim.openstreetmap.org/?addressdetails=1&q=';
+  params = location_name;
+  format = '&format=json&limit=1';
+  request.open('GET', url + params + format, true)
+  request.onload = function () {
+    // Begin accessing JSON data here
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+      osm_id = data[0].osm_id;
+      callback(osm_id);
+    } else {
+      console.log('error')
+    }
+  }
+
+  request.send()
+}
+
+function callback(result) {
+  get_polygon_coordinates(result);
+}
