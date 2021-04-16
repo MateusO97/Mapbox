@@ -50,33 +50,33 @@
         </nav>
       </div>
 
-      <!-- Jumbotron -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Map Tutorial</h3>
-          </div>
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item"><b>City: </b><span id="city"></span></li>
-              <li class="list-group-item"><b>State: </b><span id="state"></span></li>
-              <li class="list-group-item"><b>Country: </b><span id="country"></span></li>
-            </ul>
-            <h3 id="error_message" style="display: none; color: red">Sorry, we couldn't generate this address boundaries, please try another one!</h3>
-          </div>
-      </div>
-
       <!-- Main Content-->
-      <div class="masthead">
-        <h3 class="text-muted">Map</h3>
-        <div class="row">
-          <div class="col-md-12">
-            <div id="map"></div>
-            <div id="geocoder-container"></div>
 
 
-          </div> <!-- col -->
-        </div> <!-- row -->
-      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Please inform the desired Zip Code on the Map </h3>
+        </div>
+        <div class="panel-body">
+          <div class="masthead">
+            <h3 class="text-muted">Map</h3>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="map"></div>
+                <div id="geocoder-container"></div>
+
+
+              </div> <!-- col -->
+            </div> <!-- row -->
+          </div>
+          <ul class="list-group" id="information_panel"  style="display: none">
+            <li class="list-group-item"><b>City: </b><span id="city"></span></li>
+            <li class="list-group-item"><b>Province/State: </b><span id="state"></span></li>
+            <li class="list-group-item"><b>Country: </b><span id="country"></span></li>
+          </ul>
+          <h3 id="error_message" style="display: none; color: red">Sorry, we couldn't generate this address boundaries, please try another one!</h3>
+        </div>
+    </div>
 
     </div> <!-- /container -->
 

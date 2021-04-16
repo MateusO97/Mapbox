@@ -119,6 +119,7 @@ function get_polygon_coordinates(osm_id) {
 
 function print_polygon(polygon) {
   document.getElementById("error_message").style.display = "none";
+  document.getElementById("information_panel").style.display = "block";
   let coordenadas = polygon.geometry.coordinates;
 
   if(map.getLayer('fillcity')) {
