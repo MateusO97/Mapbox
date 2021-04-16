@@ -51,9 +51,18 @@
       </div>
 
       <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1>Color Boundary</h1>
-        <p class="lead">Generate a color boundary on mapbox with area code</p>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Map Tutorial</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <li class="list-group-item"><b>City: </b><span id="city"></span></li>
+              <li class="list-group-item"><b>State: </b><span id="state"></span></li>
+              <li class="list-group-item"><b>Country: </b><span id="country"></span></li>
+            </ul>
+            <h3 id="error_message" style="display: none; color: red">Sorry, we couldn't generate this address boundaries, please try another one!</h3>
+          </div>
       </div>
 
       <!-- Main Content-->
@@ -64,33 +73,10 @@
             <div id="map"></div>
             <div id="geocoder-container"></div>
 
-          <!-- START YOUR BOOTSTRAP GOODNESS HERE -->
-
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Address Information</h3>
-              </div>
-              <div class="panel-body">
-                <ul class="list-group">
-                  <li class="list-group-item" id="zip">Zip Code: </li>
-                  <li class="list-group-item" id="address">Address: </li>
-                  <li class="list-group-item" id="city">City: </li>
-                  <li class="list-group-item" id="state">State: </li>
-                  <li class="list-group-item" id="country">Country: </li>
-                </ul>
-              </div>
-          </div>
-
-          <!-- END YOUR BOOTSTRAP GOODNESS HERE -->
 
           </div> <!-- col -->
         </div> <!-- row -->
       </div>
-
-      <!-- Site footer -->
-      <footer class="footer">
-        <p>&copy; <span id="currentYear">THIS YEAR</span></p>
-      </footer>
 
     </div> <!-- /container -->
 
