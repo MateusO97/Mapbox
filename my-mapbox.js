@@ -8,10 +8,6 @@ var map = new mapboxgl.Map({
   zoom: 10 // Starting zoom level
 });
 
-var marker = new mapboxgl.Marker() // Initialize a new marker
-  .setLngLat([-48.043782, -15.841599]) // Marker [lng, lat] coordinates
-  .addTo(map); // Add the marker to the map
-
 var geocoder = new MapboxGeocoder({
   // Initialize the geocoder
   accessToken: mapboxgl.accessToken, // Set the access token
@@ -39,15 +35,19 @@ function get_location_name(geoData) {
     $.each(geoData.context, function(i, v){
       if(v.id.indexOf('place') >= 0) {
         place = v.text;
+        document.getElementById("city").innerHTML = v.text;
       }
       if(v.id.indexOf('district') >= 0) {
         district = v.text;
+        document.getElementById("city").innerHTML = v.text;
       }
       if(v.id.indexOf('region') >= 0) {
         region = v.text;
+        document.getElementById("state").innerHTML = v.text;
       }
       if(v.id.indexOf('country') >= 0) {
         countryName = v.text;
+        document.getElementById("country").innerHTML = v.text;
       }
     });
   }
@@ -110,6 +110,7 @@ function get_polygon_coordinates(osm_id) {
       // console.log(data[0].osm_id);
     } else {
       console.log('error')
+      document.getElementById("error_message").style.display = "inline";
     }
   }
 
@@ -117,6 +118,7 @@ function get_polygon_coordinates(osm_id) {
 }
 
 function print_polygon(polygon) {
+  document.getElementById("error_message").style.display = "none";
   let coordenadas = polygon.geometry.coordinates;
 
   if(map.getLayer('fillcity')) {
