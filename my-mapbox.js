@@ -1,10 +1,5 @@
 // Map via Mapbox GL
 
-function CurrentYear() {
-  var thisYear = new Date().getFullYear()
-  $("#currentYear").text(thisYear);
-}
-
 mapboxgl.accessToken = 'pk.eyJ1IjoibWV0cmljb24iLCJhIjoiY2l3eTQxMWl3MDBmYTJ6cWg3YmZtdjdsMSJ9.2vDbTw3ysscpy3YWkHo6aA';
 var map = new mapboxgl.Map({
   container: 'map', // Container ID
@@ -21,7 +16,7 @@ var geocoder = new MapboxGeocoder({
   // Initialize the geocoder
   accessToken: mapboxgl.accessToken, // Set the access token
   mapboxgl: mapboxgl, // Set the mapbox-gl instance
-  marker: false, // Do not use the default marker style
+  language: 'en', // Do not use the default marker style
   placeholder: 'Search for a place', // Placeholder text for the search bar
   flyTo: {
     easing: function(t) {
@@ -46,7 +41,7 @@ function get_location_name(geoData) {
         place = v.text;
       }
       if(v.id.indexOf('district') >= 0) {
-        place = v.text;
+        district = v.text;
       }
       if(v.id.indexOf('region') >= 0) {
         region = v.text;
