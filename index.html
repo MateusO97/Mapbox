@@ -93,6 +93,29 @@
                         <div class="col-md-12">
                           <div id="map"></div>
                           <div id="geocoder-container"></div>
+                          <div class="map-overlay top">
+                            <div class="map-overlay-inner">
+                              <fieldset>
+                                <label>Select City</label>
+                                <select id="paintedCity" name="paintedCity" onchange="changeCity()">
+                                  <option value="toronto">Toronto</option>
+                                  <option value="northYork">North York</option>
+                                  <option value="kitchener">Kitchener</option>
+                                  <option value="waterloo">Waterloo</option>
+                                  <option value="oshawa">Oshawa</option>
+                                  <option value="guelph">Guelph</option>
+                                  <option value="cambridge">Cambridge</option>
+                                  <option value="barrie">Barrie</option>
+                                  <option value="brampton">Brampton</option>
+                                  <option value="hamilton">Hamilton</option>
+                                  <option value="etobicoke">Etobicoke</option>
+                                  <option value="mississauga">Mississauga</option>
+                                  <option value="vaughan">Vaughan</option>
+                                </select>
+                              </fieldset>
+                              </div>
+                            </div>
+
                         </div> <!-- col -->
                       </div> <!-- row -->
                     </div>
@@ -165,7 +188,7 @@
       </div>
 
   <!-- local code to load and style the map -->
-  <script src="my-mapbox.js"></script>
+  <script src="mapbox.js"></script>
   <script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
   <script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
   <script src="assets/js/bootstrap.js" type="text/javascript"></script>
