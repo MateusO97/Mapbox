@@ -16,8 +16,36 @@ href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapb
 type="text/css"
 />
 <style>
-  body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+#map {
+    height: 600px;
+    margin-top: 20%;
+    width: 100%;
+}
+
+#map img {
+ max-width: none;
+ min-width: 0px;
+ height: auto;
+
+}
+
+ #geocoder-container {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.marker {
+  border: none;
+  cursor: pointer;
+  height: 56px;
+  width: 56px;
+  background-image: url(marker.png);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+
 </style>
 </head>
 <body>
@@ -26,5 +54,6 @@ type="text/css"
 
 
   <!-- local code to load and style the map -->
+  <script type="text/javascript" src="Alliston.json"></script>
   <script src="mapbox.js"></script>
 </html>
