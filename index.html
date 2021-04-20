@@ -16,27 +16,9 @@ href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapb
 type="text/css"
 />
 <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 <style>
-#map {
-    height: 600px;
-    margin-top: 20%;
-    width: 100%;
-}
-
-#map img {
- max-width: none;
- min-width: 0px;
- height: auto;
-
-}
-
- #geocoder-container {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  margin-top: 10px;
-}
-
 .marker {
   border: none;
   cursor: pointer;
@@ -78,16 +60,171 @@ type="text/css"
     font-size: 80%;
     font-weight: 400;
 }
+.map {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+  }
+.bold{font-weight:bold}
 
+@media only screen and (max-width:681px) {
+
+  .mobile-deal-btn {
+    opacity:.7;
+    background-color:gray;
+    color:#fff;
+    cursor:pointer;
+    padding:18px;
+  width:110%;
+  border:none;
+  outline:none;
+  font-size:15px;
+  position:fixed;
+  bottom:0;
+  left:0;
+  z-index:6;
+  text-align:center}
+
+.deal-panel {
+  position:absolute;
+  left:0;
+  bottom:18px;
+  width:100%;
+  padding:0 18px 25px;
+  display:none;
+  z-index:5;
+  overflow:auto;
+  overflow-x:hidden;
+  max-height:25em;
+  background-color:#fff}
+
+.search-here-btn {
+  cursor:pointer;
+  background-color:#fff;
+  top:35%;
+  left:50%;
+  outline:none;
+  -ms-transform:translate(-50%,-50%);
+  transform:translateX(-50%);
+  position:absolute;
+  z-index:6}}
+
+@media only screen and (min-width:681px) {
+
+  .deal-panel{
+    font-family:Arial,Helvetica,sans-serif;
+    position:absolute;
+    top:65%;
+    margin-top:-17em;
+    max-height:30em;
+    margin-left:1em;
+    width:20em;
+    overflow:auto;
+    overflow-x:hidden;
+    z-index:5;
+    border:1px solid #999;
+    background:#fff}
+    .stick-div{position:sticky;
+    top:0;
+    z-index:6;
+    background-color:#fff}
+
+.mobile-deal-btn{display:none}
+
+.search-here-btn {
+  cursor:pointer;
+  background-color:#fff;
+  top:30%;
+  left:60%;
+  -ms-transform:translate(-50%,-50%);
+  transform:translateX(-50%);
+  outline:none;
+  position:absolute;
+  position:fixed;
+  z-index:6}}
+
+@media only screen and (min-width:800px) {
+  .search-here-btn{
+    cursor:pointer;
+    background-color:#fff;
+    top:30%;
+    left:50%;
+    -ms-transform:translate(-50%,-50%);
+    transform:translateX(-50%);
+    outline:none;
+    position:absolute;
+    z-index:6}}
+
+@media only screen and (min-width:960px) {
+  .deal-panel {
+    font-family:Arial,Helvetica,sans-serif;
+    position:absolute;
+    top:65%;
+    margin-top:-17em;
+    max-height:30em;
+    margin-left:2em;
+    width:25em;
+    overflow:auto;
+    overflow-x:hidden;
+    z-index:5;
+    border:1px solid #999;
+    background:#fff}}
+
+  .btn-outline-primary {
+    color: #00937f;
+    border-color: #00937f;
+    font-weight: 400;
+    font-size: 10pt;
+    border-radius: .9rem;
+    padding: .3rem 1.25rem;
+  }
+
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .col-5 {
+    flex: 0 0 41.6666666667%;
+    max-width: 41.6666666667%;
+}
+
+  .col-md-5 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
 
 </style>
 </head>
 <body>
-<div id='map'></div>
+<div id='map' class="map">
+  <button type="button" onclick="openDealPanel()" id="show-btn" class="mobile-deal-btn">View Deals</button>
+  <button type="button" onclick="closePanel()" id="close-btn" class="mobile-deal-btn" style="display: none">View Deals</button>
+  <div class='deal-panel' id="deal-panel">
+    <div class='stick-div'>
+      <div class="row">
+        <div class="col">
+          <h4 class="bold pt-2 pl-2">Deals Near You:</h4>
+
+        </div>
+        <div class="col-lg-5 pt-2 col-sm-6 col-5">
+          <a href="#" class="btn btn-outline-primary">View More</a>
+        </div>
+      </div>
+    </div>
+    <div id='listings' class='listings'></div>
+  </div>
+</div>
 </body>
 
 
   <!-- local code to load and style the map -->
   <script type="text/javascript" src="Alliston.json"></script>
   <script src="mapbox.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </html>
