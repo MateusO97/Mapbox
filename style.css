@@ -44,7 +44,75 @@
     position: relative;
     overflow: hidden;
   }
+
 .bold{font-weight:bold}
+
+.cities:hover p{
+    text-decoration: none;
+    color: #ff7546;
+    cursor: pointer;
+}
+.cities p{
+    color: #000;
+    text-decoration: none;
+}
+
+.city-option {
+    /* position: absolute; */
+    border: 1px solid #ddd;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 25rem;
+    max-width: 15rem;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.city-list {
+    color: #000;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-container {
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    right: -8.5rem;
+    z-index: 9;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 1rem;
+}
+
+nav.popular {
+    display: inline-block;
+}
+nav.popular .popular {
+    color: #00937f;
+    border: none;
+    outline: none;
+}
+
+.filter-divider {
+    border-top: 3px solid #00937f;
+    width: 90%;
+    margin-top: 1.25rem;
+}
+
+nav input {
+    color: grey;
+    background-color: transparent;
+    border: none;
+    padding-left: 1em;
+    font-weight: 700;
+    font-size: 1.15em;
+    text-decoration: none!important;
+    line-height: 1;
+    transition: background-color .25s;
+}
 
 @media only screen and (max-width:681px) {
 
@@ -135,6 +203,7 @@
     z-index:6}}
 
 @media only screen and (min-width:960px) {
+
   .deal-panel {
     font-family:Arial,Helvetica,sans-serif;
     position:absolute;
@@ -147,7 +216,9 @@
     overflow-x:hidden;
     z-index:5;
     border:1px solid #999;
-    background:#fff}}
+    background:#fff
+    }
+  }
 
   .btn-outline-primary {
     color: #00937f;
