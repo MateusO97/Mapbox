@@ -30,7 +30,9 @@ function buildDealList(data) {
   var listing = listings.appendChild(document.createElement('div'));
   var today = new Date().getTime();
   data.forEach(function(store, i){
-    if (store.business.storedeals.length > 0 && Date.parse(store.business.storedeals[0].dlsExpireDate) > today) {
+    if (store.business.storedeals.length > 0
+      && Date.parse(store.business.storedeals[0].dlsExpireDate) > today
+      && store.business.storedeals[0].media) {
       //Create anchor to see deal
       var link = listing.appendChild(document.createElement('a'));
       link.href = store.storebizRoute;
@@ -46,7 +48,7 @@ function buildDealList(data) {
 
       // Create image tag
       var productImage = dealImage.appendChild(document.createElement('img'));
-      productImage.src = store.storebizLogo;
+      productImage.src = 'https://dz8osaahf9pd7.cloudfront.net/filters:format(webp)/storage/' + store.business.storedeals[0].media.mdaLocalFileName;
       productImage.className = 'img-fluid';
       productImage.style = 'max-widht: 10em';
 
@@ -73,6 +75,48 @@ function buildDealList(data) {
 
   });
 }
+
+
+Vue.component('map-filter', {
+  template: '<div class="dropdown">\
+              <button type="button" class="btn dropdown-toggle rounded-pill bg-white" id="cityFilterToggle" data-toggle="dropdown">\
+                <i class="las la-map-marker"></i>\
+                <span class="ml-1 mr-2">Barrie, ON</span>\
+              </button>\
+              <div class="dropdown-container p-4 dropdown-menu">\
+                <div class="row mx-sm-5">\
+                  <div class="col-12 col-md-6">\
+                  </div>\
+                </div>\
+                <hr class="filter-divider">\
+                <section>\
+                  <div class="">\
+                    <nav class="popular">\
+                    </nav>\
+                    <div class="col-12">\
+                      <div class="pl-4" style="width: 50%">\
+                      </div>\
+                      <div class="container">\
+                        <div class="col">\
+                          <a class="cities">\
+                            <p>{{ cityName }}</p>\
+                          </a>\
+                        </div>\
+                      </div>\
+                    </div>\
+                  </div>\
+                </section>\
+              </div>\
+            </div>',
+  data: function () {
+    return {
+      cityName: data[0].storebizLocation
+    }
+  }
+});
+new Vue({ el: '#vue-filter' })
+
+
 
 map.on('load', function() {
 var stores = data;
@@ -103,6 +147,6 @@ console.log(stores);
  });
 
  buildDealList(stores);
-
+ // get_regions(stores);
 
 });
