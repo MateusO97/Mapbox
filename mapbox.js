@@ -76,6 +76,19 @@ function buildDealList(data) {
   });
 }
 
+var stores = data;
+var map_container = new Vue({
+  el: '#vue-filter',
+  data: {
+    stores: stores
+  },
+  template: '<div class="container-lg text-center" style="height: 5em">\
+            <map-filter :atts="atts"/>\
+            </div>',
+  created: function() {
+    this.atts = stores;
+  }
+})
 
 Vue.component('map-filter', {
   template: '<div class="dropdown">\
@@ -86,20 +99,30 @@ Vue.component('map-filter', {
               <div class="dropdown-container p-4 dropdown-menu">\
                 <div class="row mx-sm-5">\
                   <div class="col-12 col-md-6">\
+                    <input type="text" v-model="search" @keyup="inputChanged"/>\
+                    <div class="city-options">\
+                      <div v-for="city in filteredCities" v-show="isOpen">\
+                          <a class="city-list">{{ city }}</a>\
+                        <br>\
+                      </div>\
+                    </div>\
                   </div>\
                 </div>\
                 <hr class="filter-divider">\
                 <section>\
                   <div class="">\
                     <nav class="popular">\
+                      <input value="Popular Areas" type="button" class="popular" v-on:click="debugTest">\
+                      <input value="A-Z" type="button" class="alphabetical">\
+                      <input value="Near By" type="button" class="nearBy pt-3 pt-lg1 pt-md1">\
                     </nav>\
                     <div class="col-12">\
                       <div class="pl-4" style="width: 50%">\
                       </div>\
                       <div class="container">\
-                        <div class="col">\
+                        <div class="col" v-for="city in city_filter">\
                           <a class="cities">\
-                            <p>{{ cityName }}</p>\
+                            <p>{{ city }}</p>\
                           </a>\
                         </div>\
                       </div>\
@@ -108,18 +131,50 @@ Vue.component('map-filter', {
                 </section>\
               </div>\
             </div>',
+  props: ['atts'],
   data: function () {
     return {
-      cityName: data[0].storebizLocation
+      result: [],
+      filteredCities: [],
+      isOpen: false,
+      search: ''
     }
-  }
+  },
+  created: function() {
+    this.result = stores;
+  },
+  computed: {
+    city_filter: function(){
+      return [...new Set(this.result.map(i => i.storebizLocation))].sort()
+    }
+  },
+  methods: {
+    debugTest: function (event) {
+      console.log(this.result);
+    },
+    inputChanged(event) {
+      if (event.code == "ArrowUp" || event.code == "ArrowDown")
+        return;
+
+      this.filteredCities = [...new Set(this.result.map(i => i.storebizLocation))].sort();
+
+      if (event.code == "Enter")
+        return;
+
+      var filtered = this.filteredCities.filter((filteredCities) => {
+        return filteredCities.match(this.search)
+      });
+
+      this.isOpen = true
+      this.filteredCities.push(...filtered)
+    }
+
+    }
 });
 new Vue({ el: '#vue-filter' })
 
 
-
 map.on('load', function() {
-var stores = data;
 console.log(stores);
  stores.forEach(function(store, i) {
    new mapboxgl.Marker()
